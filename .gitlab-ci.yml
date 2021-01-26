@@ -1,0 +1,36 @@
+image: mcr.microsoft.com/dotnet/sdk:5.0.100-focal-amd64
+
+stages:
+    - build
+    - test
+    
+before_script:
+    - 'apt-get update && apt-get install -y zip'
+
+variables:
+  project: "HouseM8API/HouseM8API"
+  test: "HouseM8API/HouseM8API"
+
+build:
+    stage: build
+    tags:
+        - docker-runner
+    only:
+        refs:
+        - Develop
+        - master        
+    script:
+        - "cd $project"
+        - 'dotnet restore'
+        - 'dotnet build'
+test:
+    stage: test
+    tags:
+        - docker-runner
+    only:
+        refs:
+        - Develop
+        - master  
+    script: 
+        - "cd $test"
+        - 'dotnet test'

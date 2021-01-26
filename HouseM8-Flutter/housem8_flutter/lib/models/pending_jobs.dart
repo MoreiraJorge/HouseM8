@@ -1,0 +1,18 @@
+import 'package:enum_to_string/enum_to_string.dart';
+import 'package:housem8_flutter/enums/Categories.dart';
+
+class PendingJobs {
+  final String title;
+  final Categories category;
+  final String description;
+
+  PendingJobs({this.title, this.category, this.description});
+
+  factory PendingJobs.fromJson(Map<String, dynamic> json) {
+    return PendingJobs(
+      title: json["title"],
+      category: EnumToString.fromString(Categories.values, json["category"]),
+      description: json["descritpion"],
+    );
+  }
+}
